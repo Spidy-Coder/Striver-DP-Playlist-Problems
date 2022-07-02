@@ -79,3 +79,27 @@ long getMaximumProfit(long *values, int n)
     
     return ahead[1];
 }
+
+//APPROACH:-5:- Space Optimization according to LeetCode discussion
+
+long getMaximumProfit(long *values, int n)
+{
+    long aheadNotBuy, aheadBuy, curBuy, curNotBuy;
+    
+    aheadNotBuy = aheadBuy = 0;
+    
+    for(int i=n-1;i>=0;i--){
+        curNotBuy = max(values[i] + aheadBuy,
+                        0 + aheadNotBuy);
+
+        curBuy = max(-values[i] + aheadNotBuy,
+                     0 + aheadBuy);
+
+
+        aheadBuy = curBuy;
+        aheadNotBuy = curNotBuy;
+       
+    }
+    
+    return aheadBuy;
+}
